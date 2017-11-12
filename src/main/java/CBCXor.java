@@ -69,7 +69,7 @@ public class CBCXor {
 
                 //XOR the key and current cipher byte
                 byte xor = (byte)(key[j] ^ encrypted[tmp]);
-                // decrypt the message block with the precious cipher
+                // decrypt the message block with the previous cipher
                 byte m = (byte)(xor ^ prev[j]);
 
                 //replace ci-1 with ci
