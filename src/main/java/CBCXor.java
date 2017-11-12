@@ -60,7 +60,7 @@ public class CBCXor {
             key[i] = (byte)(xor ^ c0Byte);
         }
 
-        //Loop through the encryption, skip the VI bytes
+        //Loop through the encryption, skip the IV bytes
         for(int i = BLOCK_SIZE; i < encrypted.length; i+= BLOCK_SIZE) {
 
             int tmp = i;
