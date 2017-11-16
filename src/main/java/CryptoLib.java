@@ -13,7 +13,10 @@ public class CryptoLib {
     public static int[] EEA(int a, int b) {
         // Note: as you can see in the test suite,
         // your function should work for any (positive) value of a and b.
-        int gcd = gcd(a, b);
+        int bTmp = b;
+        int aTmp = a;
+
+        int gcd = -1;
         int s = -1;
         int t = -1;
 
@@ -49,6 +52,8 @@ public class CryptoLib {
             }while((b != 0));
 
         }
+
+        gcd = (aTmp * s) + (bTmp * t);
 
         int[] result = new int[3];
         result[0] = gcd;
@@ -137,10 +142,10 @@ public class CryptoLib {
     }
 
     private static int gcd(int a, int b) {
-        if (b == 0)
-            return a;
+        int [] eea = EEA(a, b);
+        int gcd = eea[0];
 
-        return gcd(b,a%b);
+        return gcd;
     }
 
     private static int modPow(int a , int p, int mod){
