@@ -47,8 +47,37 @@ public class AttackRSA {
      */
     private static BigInteger recoverMessage(BigInteger[] N, BigInteger[] e,
                                              BigInteger[] c) {
-        // TODO Solve assignment.
-        return BigInteger.ZERO;
+
+        BigInteger nProd = BigInteger.ONE;
+
+        //Calculate the product, N1 * N2 * N3
+        for(int i = 0; i < N.length; i++) {
+            nProd = nProd.multiply(N[i]);
+        }
+
+        /*x will be the number that is the congruence
+        x = c1 (mod N1)
+        x = c2 (mod N2)
+        x = c3 (mod N3)
+        x can be solved with chinese remainder theorem
+        */
+
+        BigInteger x = BigInteger.ZERO;
+
+        //Calculate the sum (c1 * modInv(N/N1, N1) * N/N1) + .... + (c3 * modInv(N/N3, N3) * N/N3)
+        for(int i = 0; i < N.length; i++) {
+
+            BigInteger div = nProd.divide(N[i]);
+            BigInteger modInv = div.modInverse(N[i]);
+            BigInteger add = c[i].multiply(modInv.multiply(div));
+            x = x.add(add);
+        }
+
+        //m^3 will be congruence with x (mod N)
+        BigInteger mCubic = x.mod(nProd);
+
+        //m will be cubic root of mCubic
+        return CubeRoot.cbrt(mCubic);
     }
 
 }
