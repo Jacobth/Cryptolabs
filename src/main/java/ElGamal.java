@@ -45,7 +45,6 @@ public class ElGamal {
                                            BigInteger y, int year, int month, int day, int hour, int minute,
                                            int second, BigInteger c1, BigInteger c2) {
 
-        BigInteger m;
         long r = 0;
 
         //From the give time we don't know milliseconds, a value between 0 and 999.
@@ -65,7 +64,7 @@ public class ElGamal {
         //c2 = m * (h^r) -> m = c2 * ((h^r)^-1)
         BigInteger yPow = pow(y, r, p);
         BigInteger modInv = yPow.modInverse(p);
-        m = c2.multiply(modInv).mod(p);
+        BigInteger m = c2.multiply(modInv).mod(p);
 
         return m;
     }
